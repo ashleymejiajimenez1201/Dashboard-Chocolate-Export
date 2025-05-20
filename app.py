@@ -1,8 +1,11 @@
-import streamlit as st 
+import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# URLs de los archivos CSV (ajustadas con tu usuario de GitHub)
+# Configurar el estilo global de los gráficos
+plt.style.use('seaborn-pastel')
+
+# URLs de los archivos CSV
 clientes_url = "https://raw.githubusercontent.com/ashleymejiajimenez1201/Dashboard-Chocolate-Export/main/clientes.csv"
 mercados_url = "https://raw.githubusercontent.com/ashleymejiajimenez1201/Dashboard-Chocolate-Export/main/mercados.csv"
 exportaciones_url = "https://raw.githubusercontent.com/ashleymejiajimenez1201/Dashboard-Chocolate-Export/main/exportaciones.csv"
@@ -15,51 +18,21 @@ exportaciones = pd.read_csv(exportaciones_url)
 barreras = pd.read_csv(barreras_url)
 
 # Título del Dashboard
-st.title("Dashboard Interactivo de Exportaciones de Chocolates")
+st.title("🍫 Dashboard Interactivo de Exportaciones de Chocolates")
 
 # Filtro de país
 paises = exportaciones["País"].unique()
-pais_seleccionado = st.selectbox("Selecciona un país para ver los detalles", paises)
+pais_seleccionado = st.selectbox("🌍 Selecciona un país", sorted(paises))
 
 # Mostrar datos de clientes
-st.subheader("Clientes")
+st.subheader("👥 Clientes")
 clientes_filtrados = clientes[clientes["País"] == pais_seleccionado]
 st.dataframe(clientes_filtrados)
 
-# Mostrar datos de exportaciones
-st.subheader("Exportaciones de Chocolates")
-exportaciones_filtradas = exportaciones[exportaciones["País"] == pais_seleccionado]
-fig, ax = plt.subplots()
-ax.bar(
-    exportaciones_filtradas["País"],
-    exportaciones_filtradas["Exportaciones (USD millones)"],
-    color='#2E86C1'
-)
-ax.set_xlabel("País")
-ax.set_ylabel("Exportaciones (USD millones)")
-ax.set_title(f"Exportaciones de Chocolates en {pais_seleccionado}")
-plt.xticks(rotation=45)
-st.pyplot(fig)
-
-# Mostrar datos de mercados
-st.subheader("Segmentos de Mercado")
-mercados_filtrados = mercados[mercados["País"] == pais_seleccionado]
-st.dataframe(mercados_filtrados)
-
-# Mostrar barreras de entrada
-st.subheader("Barreras de Entrada")
-barreras_filtradas = barreras[barreras["País"] == pais_seleccionado]
-st.dataframe(barreras_filtradas)
-
-# Análisis Comparativo
-st.subheader("Análisis Comparativo")
-fig2, ax2 = plt.subplots(figsize=(8, 5))
-ax2.bar(
-    mercados["País"],
-    mercados["Tamaño del Mercado (USD millones)"],
-    color='#F39C12'
-)
-ax2.set_xlabel("País")
+# Mostrar gráfico de pastel: exportaciones por producto en el país seleccionado
+st.subheader("📦 Distribución de Exportaciones por Producto")
+exportaciones_filtradas = exportaciones[exportaciones["País"] == pais_sele_]()_
+ís")
 ax2.set_ylabel("Tamaño del Mercado (USD millones)")
 ax2.set_title("Comparación de Tamaños de Mercado")
 plt.xticks(rotation=45)
